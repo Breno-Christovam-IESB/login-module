@@ -42,23 +42,6 @@ const Loading = (props: IProps) => (
 
 export default Loading;
 
-export type RootStackParamList = {
-  Home: undefined;
-  Webnavigator: undefined;
-  Login: undefined;
-  HomePage: undefined;
-  ProductsView: undefined;
-  OrderList: undefined;
-  DetailsPro: undefined;
-}
-
-declare global {
-  namespace ReactNavigation {
-      interface RootParamList extends RootStackParamList {
-      }       
-  }
-}
-
 export interface IUserResponse {
     name: string;
     email: string;
