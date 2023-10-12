@@ -4,8 +4,60 @@ import styled from 'styled-components/native';
 
 import WelcomeImage from './assets/images/welcome_image.png';
 import { useNavigation } from '@react-navigation/native';
-import Loading from '../src/components/loading';
 import { api } from 'http-module';
+import {Modal, ActivityIndicator} from 'react-native';
+
+
+type IProps = {
+    isLoading: boolean;
+    backgroundColor: string;
+    loadingColor: string;
+};
+
+const ModalContainer = styled.View`
+flex: 1;
+align-item: center;
+justify-content: center;
+`;
+
+
+const ActivityIndicatorWrapper = styled.View<{backgroundColor: string}>`
+ background-color: ${props => props.backgroundColor};
+ padding: 20px;
+ border-radius: 10px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+`;
+
+const Loading = (props: IProps) => (
+    <Modal transparent={true} animationType="fade" visible={props.isLoading}>
+        <ModalContainer>
+            <ActivityIndicatorWrapper background-color={props.backgroundColor}>
+                <ActivityIndicator animating={props.isLoading} color={props.loadingColor} size="large" />
+            </ActivityIndicatorWrapper>
+        </ModalContainer>
+    </Modal>
+);
+
+export default Loading;
+
+export type RootStackParamList = {
+  Home: undefined;
+  Webnavigator: undefined;
+  Login: undefined;
+  HomePage: undefined;
+  ProductsView: undefined;
+  OrderList: undefined;
+  DetailsPro: undefined;
+}
+
+declare global {
+  namespace ReactNavigation {
+      interface RootParamList extends RootStackParamList {
+      }       
+  }
+}
 
 export interface IUserResponse {
     name: string;
