@@ -129,7 +129,7 @@ const FooterContainer = styled.View`
   padding: 16px;
 `;
 
-export const Login = () => {
+ const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -205,3 +205,5 @@ export const Login = () => {
     </ScrollView>
   );
 };
+
+export {Login}
