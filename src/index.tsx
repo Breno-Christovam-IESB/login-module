@@ -204,4 +204,4 @@ const FooterContainer = styled.View`
   );
 };
 
-export default Login;
+export {Login};
