@@ -30,7 +30,7 @@ const ActivityIndicatorWrapper = styled.View<{backgroundColor: string}>`
  justify-content: center;
 `;
 
-const Loading = (props: IProps) => (
+export const Loading = (props: IProps) => (
     <Modal transparent={true} animationType="fade" visible={props.isLoading}>
         <ModalContainer>
             <ActivityIndicatorWrapper background-color={props.backgroundColor}>
@@ -39,8 +39,6 @@ const Loading = (props: IProps) => (
         </ModalContainer>
     </Modal>
 );
-
-export default Loading;
 
 export interface IUserResponse {
     name: string;
@@ -206,4 +204,4 @@ const FooterContainer = styled.View`
   );
 };
 
-export {Login}
+export default Login;
