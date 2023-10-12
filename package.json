@@ -159,6 +159,8 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^18.1.3",
-    "http-module": "github:Breno-Christovam-IESB/http-module"
+    "@react-navigation/native": "^6.1.8",
+    "http-module": "github:Breno-Christovam-IESB/http-module",
+    "styled-components": "^6.0.8"
   }
 }
