@@ -1,70 +1,72 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Alert, SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 
 import WelcomeImage from './assets/images/welcome_image.png';
 import { useNavigation } from '@react-navigation/native';
 import { api } from 'http-module';
-import {Modal, ActivityIndicator} from 'react-native';
-
+import { Modal, ActivityIndicator } from 'react-native';
 
 type IProps = {
-    isLoading: boolean;
-    backgroundColor: string;
-    loadingColor: string;
+  isLoading: boolean;
+  backgroundColor: string;
+  loadingColor: string;
 };
 
 const ModalContainer = styled.View`
-flex: 1;
-align-item: center;
-justify-content: center;
+  flex: 1;
+  align-item: center;
+  justify-content: center;
 `;
 
-
-const ActivityIndicatorWrapper = styled.View<{backgroundColor: string}>`
- background-color: ${props => props.backgroundColor};
- padding: 20px;
- border-radius: 10px;
- display: flex;
- align-items: center;
- justify-content: center;
+const ActivityIndicatorWrapper = styled.View<{ backgroundColor: string }>`
+  background-color: ${(props) => props.backgroundColor};
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Loading = (props: IProps) => (
-    <Modal transparent={true} animationType="fade" visible={props.isLoading}>
-        <ModalContainer>
-            <ActivityIndicatorWrapper background-color={props.backgroundColor}>
-                <ActivityIndicator animating={props.isLoading} color={props.loadingColor} size="large" />
-            </ActivityIndicatorWrapper>
-        </ModalContainer>
-    </Modal>
+  <Modal transparent={true} animationType="fade" visible={props.isLoading}>
+    <ModalContainer>
+      <ActivityIndicatorWrapper background-color={props.backgroundColor}>
+        <ActivityIndicator
+          animating={props.isLoading}
+          color={props.loadingColor}
+          size="large"
+        />
+      </ActivityIndicatorWrapper>
+    </ModalContainer>
+  </Modal>
 );
 
 export interface IUserResponse {
-    name: string;
-    email: string;
-};
+  name: string;
+  email: string;
+}
 
 export interface ILoginUser {
-    email: string;
-    password: string;
-};
+  email: string;
+  password: string;
+}
 
 export interface ISignUpUser {
-    name: string;
-    email: string;
-    password: string;
-    passwordConfirm: string;
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+export const fetchUsers = async (): Promise<IUserResponse> => {
+  const response = await api.get<IUserResponse>('/read-user');
+  return response.data;
 };
 
-export const fetchUsers = async(): Promise<IUserResponse> => {
-    const response = await api.get<IUserResponse>('/read-user');
-    return response.data;
-};
-
-export const postLogin = async(user: ILoginUser): Promise<Number> => {
-    const response = await api.post('/login-user', user);
-    return response.status;
+export const postLogin = async (user: ILoginUser): Promise<Number> => {
+  const response = await api.post('/login-user', user);
+  return response.status;
 };
 
 type ButtonProps = {
@@ -101,7 +103,7 @@ const Input = styled.TextInput`
 `;
 
 const Button = styled.TouchableOpacity<ButtonProps>`
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   height: 50px;
   border-radius: 16px;
   justify-content: center;
@@ -127,7 +129,7 @@ const FooterContainer = styled.View`
   padding: 16px;
 `;
 
- const Login = () => {
+const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -163,7 +165,8 @@ const FooterContainer = styled.View`
 
   return (
     <ScrollView
-      contentContainerStyle={{flexGrow: 1, backgroundColor: 'black'}}>
+      contentContainerStyle={{ flexGrow: 1, backgroundColor: 'black' }}
+    >
       <SafeAreaView />
       <StatusBar barStyle={'light-content'} />
       <Image source={WelcomeImage} />
@@ -172,7 +175,7 @@ const FooterContainer = styled.View`
           placeholder="e-mail"
           placeholderTextColor={'white'}
           autoCapitalize="none"
-          onChangeText={e => setEmail(e)}
+          onChangeText={(e) => setEmail(e)}
           value={email}
         />
         <Input
@@ -180,7 +183,7 @@ const FooterContainer = styled.View`
           placeholderTextColor={'white'}
           autoCapitalize="none"
           secureTextEntry
-          onChangeText={p => setPassword(p)}
+          onChangeText={(p) => setPassword(p)}
           value={password}
         />
         <Button color="#00ff7f" activeOpacity={0.7} onPress={loginUser}>
@@ -191,17 +194,17 @@ const FooterContainer = styled.View`
         )}
       </InputContainer>
       <InputContainerNew>
-
-      <LabelNew>OU</LabelNew>
-  
+        <LabelNew>OU</LabelNew>
       </InputContainerNew>
       <FooterContainer>
-        <Button color="white" activeOpacity={0.7} onPress={() => navigation.navigate('SignUp')}>
+        <Button
+          color="white"
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('SignUp')}
+        >
           <Label>CADASTRE-SE</Label>
         </Button>
       </FooterContainer>
     </ScrollView>
   );
 };
-
-export {Login};
